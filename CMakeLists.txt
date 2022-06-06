@@ -52,10 +52,12 @@ else()
 endif()
 
 # Public CMake configuration variables.
-option(PNG_SHARED "Build shared lib" ON)
-option(PNG_STATIC "Build static lib" ON)
+option(PNG_SHARED    "Build shared lib" ON)
+option(PNG_STATIC    "Build static lib" ON)
 option(PNG_EXECUTABLES "Build libpng executables" ON)
-option(PNG_TESTS "Build libpng tests" ON)
+option(PNG_TESTS  "Build libpng tests" ON)
+option(PNG_FIX       "Build pngfix" ON)
+option(PNG_FIX_ITEXT "Build pngfix itext" ON)
 
 # Many more configuration options could be added here.
 option(PNG_FRAMEWORK "Build OS X framework" OFF)
@@ -790,13 +792,16 @@ if(PNG_TESTS AND PNG_SHARED)
 endif()
 
 if(PNG_SHARED AND PNG_EXECUTABLES)
-  add_executable(pngfix ${pngfix_sources})
-  target_link_libraries(pngfix png)
-  set(PNG_BIN_TARGETS pngfix)
-
-  add_executable(png-fix-itxt ${png_fix_itxt_sources})
+  if(PNG_FIX)
+    add_executable(pngfix ${pngfix_sources})
+    target_link_libraries(pngfix png)
+    set(PNG_BIN_TARGETS pngfix)
+  endif()
+  if(PNG_FIX_ITEXT)
+    add_executable(png-fix-itxt ${png_fix_itxt_sources})
   target_link_libraries(png-fix-itxt ${ZLIB_LIBRARIES} ${M_LIBRARY})
-  list(APPEND PNG_BIN_TARGETS png-fix-itxt)
+    list(APPEND PNG_BIN_TARGETS png-fix-itxt)
+  endif()
 endif()
 
 # Creates a symlink from src to dest (if possible), or, alternatively,
