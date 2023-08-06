@@ -429,7 +429,7 @@ else()
                           "${CMAKE_CURRENT_SOURCE_DIR}/pngconf.h")
   add_custom_target(png_scripts_pnglibconf_c
                     DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/scripts/pnglibconf.c")
-
+  
   # Generate pnglibconf.c
   generate_source(OUTPUT "pnglibconf.c"
                   DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/scripts/pnglibconf.dfa"
@@ -451,7 +451,6 @@ else()
                DEPENDS pnglibconf_c)
   add_custom_target(pnglibconf_out
                     DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.out")
-
   # Generate pnglibconf.h
   generate_source(OUTPUT "pnglibconf.h"
                   DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.out" pnglibconf_out

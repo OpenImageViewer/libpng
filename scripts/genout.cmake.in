@@ -61,6 +61,7 @@ if ("${INPUTEXT}" STREQUAL ".c" AND "${OUTPUTEXT}" STREQUAL ".out")
   execute_process(COMMAND "${CMAKE_C_COMPILER}" "-E"
                           ${CMAKE_C_FLAGS}
                           ${PLATFORM_C_FLAGS}
+                          "-I${ZLIBINCDIR}"
                           "-I${SRCDIR}"
                           "-I${BINDIR}"
                           ${INCLUDES}
